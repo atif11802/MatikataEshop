@@ -1,7 +1,7 @@
 function App() {
 	return (
 		<>
-			<h1>welcome to matikata shop</h1>
+			<h1>welcome to matikata shop q</h1>
 		</>
 	);
 }
