@@ -1,7 +1,16 @@
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { Container } from "react-bootstrap";
+import Routing from "./Routing";
+
 function App() {
 	return (
 		<>
-			<h1>welcome to matikata shop q</h1>
+			<main className='py-1'>
+				<Routing />
+			</main>
+
+			<Footer />
 		</>
 	);
 }
