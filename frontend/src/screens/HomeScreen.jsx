@@ -12,8 +12,6 @@ const HomeScreen = () => {
 
 	const { products, loading, error } = productList;
 
-	console.log(products, loading);
-
 	useEffect(() => {
 		dispatch(listProducts());
 	}, [dispatch]);
