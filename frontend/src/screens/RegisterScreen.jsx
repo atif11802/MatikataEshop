@@ -27,6 +27,10 @@ const RegisterScreen = () => {
 		}
 	}, [userInfo, navigate]);
 
+	const handleBlur = () => {
+		setMessage(null);
+	};
+
 	const SubmitHandler = (e) => {
 		e.preventDefault();
 		//user register
@@ -43,7 +47,7 @@ const RegisterScreen = () => {
 			{message && <Message variant='danger' children={message} />}
 			{loading && <Loader loading />}
 
-			<Form onSubmit={SubmitHandler}>
+			<Form onSubmit={SubmitHandler} onBlur={handleBlur}>
 				<Form.Group controlId='name'>
 					<Form.Label>Name </Form.Label>
 					<Form.Control
