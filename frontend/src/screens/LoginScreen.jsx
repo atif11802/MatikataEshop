@@ -7,6 +7,7 @@ import FormContainer from "../components/FormContainer";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import { useLocation } from "react-router-dom";
 
 const LoginScreen = () => {
 	const [email, setEmail] = useState("");

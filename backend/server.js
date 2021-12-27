@@ -4,6 +4,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import ProductRoutes from "./routes/productRoutes.js";
 import UserRoutes from "./routes/userRoutes.js";
+import OrderRoutes from "./routes/orderRoutes.js";
 import colors from "colors";
 import morgan from "morgan";
 import { notFound, errorHandler } from "./middleWare/errorMiddleware.js";
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", ProductRoutes);
 app.use("/api/users", UserRoutes);
+app.use("/api/orders", OrderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
