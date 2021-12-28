@@ -11,8 +11,11 @@ import { protect } from "../middleWare/authMiddleware.js";
 
 //create Order Item
 router.post("/", protect, addOrderItems);
-router.get("/:id", protect, getOrderById);
+router.route("/myorders").get(protect, getMyOrders);
+router.route("/:id").get(protect, getOrderById);
 router.put("/:id/pay", protect, updateOrderToPaid);
-router.get("/myorders", protect, getMyOrders);
+// router.get("/myorders", protect, getMyOrders);
+
+// api/orders/myorders
 
 export default router;
