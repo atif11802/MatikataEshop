@@ -56,17 +56,17 @@ const Header = () => {
 								<NavDropdown title='Admin' id='adminmenu'>
 									<li className='nav-item active'>
 										<Link className='nav-link' to='/admin/userlist'>
-											<i className='fa fa-user'></i>Users
+											<i className='fas fa-users'></i>Users
 										</Link>
 									</li>
 									<li className='nav-item active'>
 										<Link className='nav-link' to='/admin/productlist'>
-											<i class='fas fa-archive'></i>Products
+											<i className='fas fa-archive'></i>Products
 										</Link>
 									</li>
 									<li className='nav-item active'>
 										<Link className='nav-link' to='/admin/orderlist'>
-											<i class='fas fa-clipboard-list'></i>Orders
+											<i className='fas fa-clipboard-list'></i>Orders
 										</Link>
 									</li>
 								</NavDropdown>
