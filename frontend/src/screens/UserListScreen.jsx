@@ -17,13 +17,8 @@ const UserListScreen = () => {
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
-
-
 	const userDelete = useSelector((state) => state.userDelete);
-	const { success: successDelete} = userDelete;
-
-
-
+	const { success: successDelete } = userDelete;
 
 	const navigate = useNavigate();
 
@@ -33,13 +28,12 @@ const UserListScreen = () => {
 		} else {
 			navigate("/");
 		}
-	}, [navigate, dispatch, userInfo,successDelete]);
+	}, [navigate, dispatch, userInfo, successDelete]);
 
 	const deleteHandler = (id) => {
-		if(window.confirm("are you sure")){
-			dispatch(deleteUser(id))
+		if (window.confirm("are you sure")) {
+			dispatch(deleteUser(id));
 		}
-		
 	};
 
 	return (
@@ -82,7 +76,7 @@ const UserListScreen = () => {
 									)}
 								</td>
 								<td>
-									<LinkContainer to={`/users/${user._id}/edit`}>
+									<LinkContainer to={`/admin/user/${user._id}/edit`}>
 										<Button variant='light' className='btn-sm'>
 											<i className='far fa-edit'></i>
 											Edit
@@ -91,7 +85,7 @@ const UserListScreen = () => {
 									<Button
 										variant='danger'
 										className='btn-sm'
-										onClick={()=>deleteHandler(user._id)}
+										onClick={() => deleteHandler(user._id)}
 									>
 										<i className='fas fa-trash'></i>
 										Delete
