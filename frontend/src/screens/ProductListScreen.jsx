@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
+import { listProducts, deleteProduct } from "../actions/productActions";
 import FormContainer from "../components/FormContainer";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
@@ -17,6 +17,13 @@ const ProductListScreen = () => {
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
+	const productDelete = useSelector((state) => state.productDelete);
+	const {
+		loading: loadingDelete,
+		error: errorDelete,
+		success: successDelete,
+	} = productDelete;
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -26,13 +33,13 @@ const ProductListScreen = () => {
 		} else {
 			navigate("/");
 		}
-	}, [navigate, dispatch, userInfo]);
+	}, [navigate, dispatch, userInfo, successDelete]);
 
 	const createProductHandler = () => {};
 
 	const deleteHandler = (id) => {
 		if (window.confirm("are you sure")) {
-			//delete a product
+			dispatch(deleteProduct(id));
 		}
 	};
 
@@ -48,7 +55,8 @@ const ProductListScreen = () => {
 					</Button>
 				</Col>
 			</Row>
-			<h1>Users</h1>
+			{loadingDelete && <Loader />}
+			{errorDelete && <Message variant='danger' children={errorDelete} />}
 			{loading ? (
 				<Loader />
 			) : error ? (
