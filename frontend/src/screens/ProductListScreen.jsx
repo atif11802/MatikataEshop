@@ -2,12 +2,17 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts, deleteProduct } from "../actions/productActions";
+import {
+	listProducts,
+	deleteProduct,
+	createProduct,
+} from "../actions/productActions";
 import FormContainer from "../components/FormContainer";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { LinkContainer } from "react-router-bootstrap";
+import { PRODUCT_CREATE_RESET } from "../constants/productConstant";
 
 const ProductListScreen = () => {
 	const dispatch = useDispatch();
@@ -24,18 +29,38 @@ const ProductListScreen = () => {
 		success: successDelete,
 	} = productDelete;
 
+	const productCreate = useSelector((state) => state.productCreate);
+	const {
+		loading: loadingCreate,
+		error: errorCreate,
+		success: successCreate,
+		product: createdProduct,
+	} = productCreate;
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (userInfo && userInfo.isAdmin) {
-			//
-			dispatch(listProducts());
-		} else {
+		dispatch({ type: PRODUCT_CREATE_RESET });
+		if (!userInfo.isAdmin) {
 			navigate("/");
 		}
-	}, [navigate, dispatch, userInfo, successDelete]);
+		if (successCreate) {
+			navigate(`/admin/product/${createdProduct._id}/edit`);
+		} else {
+			dispatch(listProducts());
+		}
+	}, [
+		navigate,
+		dispatch,
+		userInfo,
+		successDelete,
+		successCreate,
+		createdProduct,
+	]);
 
-	const createProductHandler = () => {};
+	const createProductHandler = () => {
+		dispatch(createProduct());
+	};
 
 	const deleteHandler = (id) => {
 		if (window.confirm("are you sure")) {
@@ -57,6 +82,8 @@ const ProductListScreen = () => {
 			</Row>
 			{loadingDelete && <Loader />}
 			{errorDelete && <Message variant='danger' children={errorDelete} />}
+			{loadingCreate && <Loader />}
+			{errorCreate && <Message variant='danger' children={errorCreate} />}
 			{loading ? (
 				<Loader />
 			) : error ? (
