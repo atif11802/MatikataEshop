@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 import { Helmet } from "react-helmet";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 const HomeScreen = () => {
 	const { keyword } = useParams();
@@ -64,6 +65,7 @@ const HomeScreen = () => {
 					/>
 				</>
 			)}
+			<MessengerCustomerChat pageId='101210219116469' appId='214741650861912' />
 		</div>
 	);
 };
