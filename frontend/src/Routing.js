@@ -24,7 +24,8 @@ const Routing = () => {
 			<Header />
 			<Container>
 				<Routes>
-					<Route path='/' element={<HomeScreen />} />
+					<Route exact path='/' element={<HomeScreen />} />
+					<Route path='/search/:keyword' element={<HomeScreen />} />
 					<Route path='/product/:id' element={<ProductScreen />} />
 					<Route path='/cart' element={<CartScreen />}>
 						<Route path=':id' element={<CartScreen />} />
@@ -44,6 +45,16 @@ const Routing = () => {
 						element={<ProductEditScreen />}
 					/>
 					<Route path='/admin/orderlist' element={<OrderListScreen />} />
+					<Route exact path='/page/:pageNumber' element={<HomeScreen />} />
+					<Route
+						exact
+						path='/search/:keyword/page/:pageNumber'
+						element={<HomeScreen />}
+					/>
+					<Route
+						path='/admin/productlist/:pageNumber'
+						element={<ProductListScreen />}
+					/>
 				</Routes>
 			</Container>
 		</Router>
