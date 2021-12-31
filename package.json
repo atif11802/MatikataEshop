@@ -26,5 +26,8 @@
 		"mongoose": "^6.1.3",
 		"morgan": "^1.10.0",
 		"nodemon": "^2.0.15"
+	},
+	"optionalDependencies": {
+		"fsevents": "^2.3.2"
 	}
 }
