@@ -13,6 +13,9 @@ import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstant";
 import { Helmet } from "react-helmet";
+import { addToCart } from "../actions/cartActions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductScreen = () => {
 	const [qty, setQty] = useState(1);
@@ -46,7 +49,19 @@ const ProductScreen = () => {
 	}, [id, dispatch, successProductReview]);
 
 	const addToCartHandler = () => {
-		navigate(`/cart/${id}?qty=${qty}`);
+		dispatch(addToCart(id, qty));
+		const notify = () =>
+			toast.success("Added to the Cart", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		notify();
+		// navigate(`/cart/${id}?qty=${qty}`);
 	};
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -209,6 +224,17 @@ const ProductScreen = () => {
 					</Row>
 				</>
 			)}
+			<ToastContainer
+				position='top-right'
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 		</>
 	);
 };

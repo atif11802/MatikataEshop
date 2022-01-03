@@ -11,6 +11,9 @@ const Header = () => {
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
+	const cart = useSelector((state) => state.cart);
+	const { cartItems } = cart;
+
 	const logoutHandler = () => {
 		dispatch(logout());
 	};
@@ -31,6 +34,7 @@ const Header = () => {
 								<li className='nav-item active'>
 									<Link className='nav-link' to='/cart'>
 										<i className='fa fa-shopping-cart'></i>Cart
+										<sup>{cartItems && cartItems.length}</sup>
 									</Link>
 								</li>
 								{userInfo ? (
