@@ -65,12 +65,12 @@ const HomeScreen = () => {
 					/>
 				</>
 			)}
-			<div className='messenger__Chat'>
-				<MessengerCustomerChat
-					pageId='101210219116469'
-					appId='214741650861912'
-				/>
-			</div>
+
+			<MessengerCustomerChat
+				pageId='101210219116469'
+				appId='214741650861912'
+				style={{ color: "red" }}
+			/>
 		</div>
 	);
 };
