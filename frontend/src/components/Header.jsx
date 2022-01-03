@@ -23,7 +23,7 @@ const Header = () => {
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
 				<Container>
 					<Link className='navbar-brand' to='/'>
-						Home
+						Matikata Shop
 					</Link>
 
 					<SearchBox />
