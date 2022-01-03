@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../actions/cartActions";
+import { resetCartItems } from "../actions/cartActions";
 import { Navigate, useNavigate } from "react-router-dom";
 import CheckOutSteps from "../components/CheckOutSteps";
 import Message from "../components/Message";
 import { Link } from "react-router-dom";
 import { createOrder } from "../actions/orderActions";
+import { CART_RESET_ITEM } from "../constants/cartConstant";
 
 const PlaceOrderScreen = () => {
 	const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const PlaceOrderScreen = () => {
 				totalPrice: cart.totalPrice,
 			})
 		);
+		dispatch(resetCartItems());
 	};
 
 	return (
