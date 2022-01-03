@@ -16,6 +16,7 @@
 	"author": "md. atif aslam",
 	"license": "ISC",
 	"dependencies": {
+		"@alan-ai/alan-sdk-web": "^1.8.29",
 		"bcryptjs": "^2.4.3",
 		"colors": "^1.4.0",
 		"concurrently": "^6.5.1",

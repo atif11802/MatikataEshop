@@ -17,11 +17,13 @@ import UserEditScreen from "./screens/UserEditScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
+import AlanAi from "./components/AlanAi";
 
 const Routing = () => {
 	return (
 		<Router>
 			<Header />
+			<AlanAi />
 			<Container>
 				<Routes>
 					<Route exact path='/' element={<HomeScreen />} />
