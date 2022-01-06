@@ -15,7 +15,7 @@ const ProductEditScreen = () => {
 
 	const [name, setName] = useState("");
 	const [price, setPrice] = useState(0);
-	const [image, setImage] = useState("");
+	const [images, setImages] = useState([]);
 	const [brand, setBrand] = useState("");
 	const [category, setCategory] = useState("");
 	const [countInStock, setCountInStock] = useState(0);
@@ -45,7 +45,7 @@ const ProductEditScreen = () => {
 			} else {
 				setName(product.name);
 				setPrice(product.price);
-				setImage(product.image);
+				// setImages(product.image);
 				setBrand(product.brand);
 				setCategory(product.category);
 				setCountInStock(product.countInStock);
@@ -56,12 +56,13 @@ const ProductEditScreen = () => {
 
 	const SubmitHandler = (e) => {
 		e.preventDefault();
+
 		dispatch(
 			updateProduct({
 				_id: id,
 				name,
 				price,
-				image,
+				images,
 				brand,
 				category,
 				countInStock,
@@ -104,13 +105,13 @@ const ProductEditScreen = () => {
 								onChange={(e) => setPrice(e.target.value)}
 							/>
 						</Form.Group>
-						<Form.Group controlId='image'>
-							<Form.Label>Image </Form.Label>
+						<Form.Group controlId='images'>
+							<Form.Label>Not more than 12 Images</Form.Label>
 							<Form.Control
-								type='text'
-								placeholder='Enter Image url'
-								value={image}
-								onChange={(e) => setImage(e.target.value)}
+								type='file'
+								multiple
+								label='Files'
+								onChange={(e) => setImages(e.target.files)}
 							/>
 						</Form.Group>
 

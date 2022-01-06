@@ -145,10 +145,28 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 				Authorization: `Bearer ${userInfo.token}`,
 			},
 		};
+		const formData = new FormData();
+		formData.append("name", product.name);
+		formData.append("_id", product._id);
+		formData.append("price", product.price);
+		formData.append("brand", product.brand);
+		formData.append("category", product.category);
+		formData.append("countInStock", product.countInStock);
+		formData.append("description", product.description);
+		// [...product.images].forEach((image) => {
+		// 	console.log(image);
+		// 	formData.append("productPictures", image);
+		// });
+
+		Object.values(product.images).forEach((file) => {
+			formData.append("productPictures", file);
+		});
+
+		// console.log(product.images);
 
 		const { data } = await axios.put(
 			`/api/products/${product._id}`,
-			product,
+			formData,
 			config
 		);
 

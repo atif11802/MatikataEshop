@@ -1,9 +1,10 @@
 import Product from "../models/ProductModel.js";
 import asyncHandler from "express-async-handler";
+import cloudinary from "../cloudinary.js";
 
 //get all products from db
 const getProducts = asyncHandler(async (req, res) => {
-	const pageSize = 4;
+	const pageSize = 8;
 	const page = Number(req.query.pageNumber) || 1;
 
 	const keyword = req.query.keyword
@@ -58,7 +59,7 @@ const createProduct = asyncHandler(async (req, res) => {
 		name: "Sample name",
 		price: 0,
 		user: req.user._id,
-		image: "/images/sample.jpg",
+		productPictures: [],
 		brand: "Sample brand",
 		category: "Sample category",
 		countInStock: 0,
@@ -70,28 +71,48 @@ const createProduct = asyncHandler(async (req, res) => {
 	res.status(201).json(createdProduct);
 });
 
-const updateProduct = asyncHandler(async (req, res) => {
-	const { name, price, description, image, brand, category, countInStock } =
-		req.body;
+const updateProduct = async (req, res) => {
+	const { name, price, description, brand, category, countInStock } = req.body;
 
 	const product = await Product.findById(req.params.id);
 
+	product.productPictures.map(async (picture) => {
+		await cloudinary.uploader.destroy(picture.public);
+	});
+
+	// console.log(productPictures);
+
 	if (product) {
+		let pictureFiles = req.files;
+		console.log(pictureFiles);
+		if (!pictureFiles)
+			return res.status(400).json({ message: "No picture attached!" });
+		let multiplePicturePromise = pictureFiles.map((picture) =>
+			cloudinary.v2.uploader.upload(picture.path)
+		);
+		let imageResponses = await Promise.all(multiplePicturePromise);
+		// res.status(200).json({ images: imageResponses });
+		const productPictures = imageResponses.map((image) => {
+			let obj = {};
+			obj.res = image.url;
+			obj.public = image.public_id;
+			return obj;
+			// return ({ public_id, secure_url } = image);
+		});
 		product.name = name;
 		product.price = price;
 		product.description = description;
-		product.image = image;
+		product.productPictures = productPictures;
 		product.brand = brand;
 		product.category = category;
 		product.countInStock = countInStock;
-
 		const updatedProduct = await product.save();
 		res.json(updatedProduct);
 	} else {
 		res.status(404);
 		throw new Error("Product not found");
 	}
-});
+};
 
 //logged user only can access
 //post req

@@ -19,12 +19,13 @@ router.route("/").get(getProducts).post(protect, admin, createProduct);
 router.route("/:id/reviews").post(protect, createProductReview);
 
 router.get("/top", getTopProducts);
+import upload from "../multer.js";
 
 //single products
 router
 	.route("/:id")
 	.get(getProductById)
 	.delete(protect, admin, deleteProduct)
-	.put(protect, admin, updateProduct);
+	.put(protect, admin, upload.array("productPictures", 12), updateProduct);
 
 export default router;

@@ -11,11 +11,14 @@ import morgan from "morgan";
 import { notFound, errorHandler } from "./middleWare/errorMiddleware.js";
 const app = express();
 const PORT = process.env.PORT || 4000;
+import bodyParser from "body-parser";
 
 //database
 connectDB();
 
-app.use(express.json());
+app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //middleware
 app.use(morgan("dev"));

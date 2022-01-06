@@ -16,6 +16,16 @@ import { Helmet } from "react-helmet";
 import { addToCart } from "../actions/cartActions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-bootstrap";
+import {
+	CarouselProvider,
+	Slider,
+	Slide,
+	ButtonBack,
+	ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
 
 const ProductScreen = () => {
 	const [qty, setQty] = useState(1);
@@ -87,7 +97,33 @@ const ProductScreen = () => {
 				<>
 					<Row>
 						<Col md={6}>
-							<Image src={product.image} alt={product.name} fluid />
+							{product.image && (
+								<Image src={product.image} alt={product.name} fluid />
+							)}
+
+							{product.productPictures && (
+								<>
+									<CarouselProvider
+										naturalSlideWidth={100}
+										naturalSlideHeight={65}
+										totalSlides={product.productPictures.length}
+									>
+										<Slider>
+											{product.productPictures?.map((productPicture) => (
+												<Slide index={0}>
+													<img
+														className='productImages'
+														src={productPicture.res}
+														alt=''
+													/>
+												</Slide>
+											))}
+										</Slider>
+										<ButtonBack>Back</ButtonBack>
+										<ButtonNext>Next</ButtonNext>
+									</CarouselProvider>
+								</>
+							)}
 						</Col>
 						<Col md={3}>
 							<ListGroup variant='flush'>

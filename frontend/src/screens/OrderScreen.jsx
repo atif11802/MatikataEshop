@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../actions/cartActions";
+import {
+	removeFromCart,
+	resetCartItems,
+	saveShippingAddress,
+} from "../actions/cartActions";
 import { Navigate, useNavigate } from "react-router-dom";
 import CheckOutSteps from "../components/CheckOutSteps";
 import Message from "../components/Message";
@@ -46,6 +50,9 @@ const OrderScreen = () => {
 		if (!userInfo) {
 			navigate("/login");
 		}
+		if (successPay) {
+			dispatch(resetCartItems());
+		}
 
 		const addPaypalScript = async () => {
 			const { data: clientId } = await axios.get("/api/config/paypal");
@@ -70,7 +77,15 @@ const OrderScreen = () => {
 				setSdkReady(true);
 			}
 		}
-	}, [dispatch, orderId, successPay, order, successDeliver]);
+	}, [
+		dispatch,
+		orderId,
+		successPay,
+		order,
+		successDeliver,
+		navigate,
+		userInfo,
+	]);
 
 	if (!loading) {
 		const addDecimals = (num) => {

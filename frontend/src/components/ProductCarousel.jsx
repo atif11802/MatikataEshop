@@ -27,7 +27,7 @@ const ProductCarousel = () => {
 					<Link to={`/product/${product._id}`}>
 						<Image
 							style={{ height: "300px" }}
-							src={product.image}
+							src={product.productPictures[0].res}
 							alt={product.name}
 							fluid
 						/>

@@ -8,7 +8,6 @@ import CheckOutSteps from "../components/CheckOutSteps";
 import Message from "../components/Message";
 import { Link } from "react-router-dom";
 import { createOrder } from "../actions/orderActions";
-import { CART_RESET_ITEM } from "../constants/cartConstant";
 
 const PlaceOrderScreen = () => {
 	const dispatch = useDispatch();
@@ -52,7 +51,6 @@ const PlaceOrderScreen = () => {
 				totalPrice: cart.totalPrice,
 			})
 		);
-		dispatch(resetCartItems());
 	};
 
 	return (
