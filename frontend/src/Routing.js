@@ -18,12 +18,14 @@ import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import AlanAi from "./components/AlanAi";
+import Command from "./components/Command";
 
 const Routing = () => {
 	return (
 		<Router>
 			<Header />
 			<AlanAi />
+			<Command />
 			<Container>
 				<Routes>
 					<Route exact path='/' element={<HomeScreen />} />
